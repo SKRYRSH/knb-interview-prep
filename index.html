@@ -131,19 +131,66 @@ textarea{resize:vertical;min-height:80px}
 .alert-card strong{color:var(--red)}
 .alert-card p{color:#fca5a5;margin-top:4px}
 
+/* CATEGORY BADGE ON QUESTIONS */
+.q-cat{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.q-cat-critical{background:rgba(239,68,68,0.15);color:var(--red)}
+.q-cat-key{background:rgba(245,158,11,0.15);color:var(--gold)}
+.q-cat-standard{background:rgba(96,96,160,0.2);color:var(--dim)}
+.q-cat-psych{background:rgba(168,85,247,0.15);color:var(--purple)}
+.q-cat-bonus{background:rgba(34,197,94,0.12);color:var(--green)}
+
+/* SELF RATING */
+.self-rate{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rate-btn{padding:7px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;font-family:'Inter',sans-serif}
+.rate-nailed{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);color:var(--green)}
+.rate-nailed:hover{background:rgba(34,197,94,0.2)}
+.rate-ok{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);color:var(--gold)}
+.rate-ok:hover{background:rgba(245,158,11,0.18)}
+.rate-weak{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:var(--red)}
+.rate-weak:hover{background:rgba(239,68,68,0.14)}
+
+/* READINESS BAR */
+.readiness-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.readiness-label{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
+.readiness-track{flex:1;background:rgba(255,255,255,0.05);border-radius:99px;height:6px;overflow:hidden}
+.readiness-fill{height:6px;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--gold));transition:width 0.5s ease}
+.readiness-pct{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap}
+
+/* XP PILL */
+.xp-pill{background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;color:var(--purple);font-family:'JetBrains Mono',monospace}
+
+/* GLOW HERO */
+@keyframes pulse-glow{0%,100%{opacity:0.4}50%{opacity:0.7}}
+.hero-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.12),transparent 70%);top:-80px;left:50%;transform:translateX(-50%);animation:pulse-glow 4s ease-in-out infinite;pointer-events:none}
+
+/* FLOATING BADGE */
+.float-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--green);margin-top:10px}
+.float-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-glow 1.5s infinite}
+
+/* SECTION DIVIDER */
+.section-divider{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1.2px;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Q CARD ANIMATION */
+.q-card{transition:border-color 0.2s}
+.q-card:hover{border-color:rgba(245,158,11,0.2)}
+.q-card.open{border-color:rgba(245,158,11,0.25)}
+
 @media(max-width:600px){.card{padding:16px}.hero{padding:32px 16px 28px}}
 </style>
 </head>
 <body>
 
 <div class="hero">
+  <div class="hero-glow"></div>
   <div class="badge">KNB Scholarship 2026</div>
-  <h1>UM Interview Prep Guide</h1>
-  <p>Universitas Negeri Malang — Faculty of Economics, Management</p>
+  <h1>UM Interview <span>Prep Guide</span></h1>
+  <p>Universitas Negeri Malang &nbsp;·&nbsp; Tailored to your program & background</p>
   <div class="interview-date">
     Interview Day
     <strong>Tuesday, May 19, 2026 &nbsp;·&nbsp; 11:30 AM GMT+7</strong>
   </div>
+  <div class="float-badge">17 questions · 3 panelists · mock interview included</div>
 </div>
 
 <div class="countdown-bar">
@@ -168,7 +215,22 @@ textarea{resize:vertical;min-height:80px}
       </div>
       <div class="form-group">
         <label>Study Program Applied For</label>
-        <input type="text" id="f-program" value="Management (S1)" />
+        <select id="f-program">
+          <option value="Management">Management / Business Administration</option>
+          <option value="Economics">Economics / Finance / Accounting</option>
+          <option value="Engineering">Engineering (Civil, Mechanical, Electrical, etc.)</option>
+          <option value="Computer Science">Computer Science / Information Technology</option>
+          <option value="Education">Education / Teaching / Pedagogy</option>
+          <option value="Science">Natural Science / Biology / Chemistry / Physics</option>
+          <option value="Social Science">Social Science / Sociology / Political Science</option>
+          <option value="Communication">Communication / Journalism / Media</option>
+          <option value="Law">Law / International Relations</option>
+          <option value="Health">Public Health / Nursing / Medicine</option>
+          <option value="Agriculture">Agriculture / Environmental Science</option>
+          <option value="Arts">Arts / Design / Architecture</option>
+          <option value="Language">Language / Literature / Linguistics</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
       <div class="form-group">
         <label>Your Background</label>
@@ -257,7 +319,14 @@ textarea{resize:vertical;min-height:80px}
 
       <div class="mock-answer-reveal" id="mock-answer-box">
         <div class="q-label">Model Answer Framework</div>
-        <div id="mock-answer-text" style="font-size:14px;line-height:1.7;color:#2d3748;margin-top:6px;white-space:pre-wrap;"></div>
+        <div id="mock-answer-text" style="font-size:13px;line-height:1.7;color:var(--text);margin-top:6px;white-space:pre-wrap;"></div>
+        <div style="margin-top:14px;font-size:11px;color:var(--dim);margin-bottom:8px;font-weight:600">HOW DID YOU DO?</div>
+        <div class="self-rate">
+          <button class="rate-btn rate-nailed" onclick="rateMock('nailed')">Nailed it ✓</button>
+          <button class="rate-btn rate-ok" onclick="rateMock('ok')">Decent, needs polish</button>
+          <button class="rate-btn rate-weak" onclick="rateMock('weak')">Weak — retry later</button>
+        </div>
+        <div id="mock-rate-msg" style="font-size:12px;margin-top:10px;color:var(--dim);display:none"></div>
       </div>
     </div>
   </div>
@@ -356,18 +425,22 @@ textarea{resize:vertical;min-height:80px}
   }
 
   // ─── BUILD GUIDE ─────────────────────────────────────────
+  let openedQuestions = new Set();
+  let readinessScore = 0;
+
   function buildGuide() {
     profile = {
       name: document.getElementById('f-name').value.trim() || 'You',
       country: document.getElementById('f-country').value.trim() || 'your country',
-      program: document.getElementById('f-program').value.trim() || 'Management',
+      program: document.getElementById('f-program').value || 'Management',
       background: document.getElementById('f-background').value,
       goal: document.getElementById('f-goal').value,
       story: document.getElementById('f-story').value.trim(),
       indonesia: document.getElementById('f-indonesia').value.trim(),
       concern: document.getElementById('f-concern').value
     };
-
+    openedQuestions = new Set();
+    readinessScore = 0;
     buildProfileSummary();
     buildOIA();
     buildProgram();
@@ -377,24 +450,46 @@ textarea{resize:vertical;min-height:80px}
     goStep('guide');
   }
 
+  function updateReadiness() {
+    const total = 22;
+    const pct = Math.min(100, Math.round((openedQuestions.size / total) * 100));
+    const el = document.getElementById('readiness-fill');
+    const elPct = document.getElementById('readiness-pct');
+    if(el) el.style.width = pct + '%';
+    if(elPct) elPct.textContent = pct + '%';
+  }
+
   function buildProfileSummary() {
     const bgMap = { founder: 'Founder / Entrepreneur', student: 'University Student', freshgrad: 'Fresh Graduate', professional: 'Working Professional' };
     const goalMap = { business: 'Build / scale a business', career: 'Corporate career advancement', research: 'Academic research', social: 'Social impact / NGO' };
     document.getElementById('profile-summary').innerHTML = `
-      <h2>Your Prep Guide, ${profile.name}</h2>
-      <p class="subtitle">All answer frameworks are tailored to your profile below.</p>
-      <div style="margin-top:10px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+        <div>
+          <h2>Your Prep Guide, ${profile.name}</h2>
+          <p class="subtitle" style="margin-bottom:0">All answer frameworks are tailored to your profile.</p>
+        </div>
+        <span class="xp-pill">22 questions</span>
+      </div>
+      <div style="margin-top:12px">
         <span class="profile-chip">📍 ${profile.country}</span>
         <span class="profile-chip">📚 ${profile.program}</span>
         <span class="profile-chip">👤 ${bgMap[profile.background]}</span>
         <span class="profile-chip">🎯 ${goalMap[profile.goal]}</span>
       </div>
       ${profile.story ? `<div class="story-box" style="margin-top:12px"><strong style="color:var(--gold)">Your story:</strong> ${profile.story}</div>` : ''}
+      <div class="readiness-wrap" style="margin-top:14px;margin-bottom:0">
+        <span class="readiness-label">Readiness</span>
+        <div class="readiness-track"><div class="readiness-fill" id="readiness-fill" style="width:0%"></div></div>
+        <span class="readiness-pct" id="readiness-pct">0%</span>
+      </div>
     `;
   }
 
-  function qCard(question, why, framework, avoids, keywords) {
+  function qCard(question, why, framework, avoids, keywords, cat) {
     const id = 'q' + Math.random().toString(36).slice(2);
+    const catMap = {critical:'q-cat-critical',key:'q-cat-key',standard:'q-cat-standard',psych:'q-cat-psych',bonus:'q-cat-bonus'};
+    const catLabel = {critical:'⚠ Critical',key:'★ Key Question',standard:'Standard',psych:'🧠 Psych',bonus:'💬 Bonus'};
+    const catHTML = cat ? `<div class="q-cat ${catMap[cat]||'q-cat-standard'}">${catLabel[cat]||cat}</div>` : '';
     return `
       <div class="q-card" id="${id}">
         <div class="q-header" onclick="toggleQ('${id}')">
@@ -402,6 +497,7 @@ textarea{resize:vertical;min-height:80px}
           <span class="q-icon">▼</span>
         </div>
         <div class="q-body">
+          ${catHTML}
           <div class="q-section">
             <div class="q-label">Why They Ask This</div>
             <p>${why}</p>
@@ -417,7 +513,9 @@ textarea{resize:vertical;min-height:80px}
   }
 
   function toggleQ(id) {
-    document.getElementById(id).classList.toggle('open');
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+    if(el.classList.contains('open')) { openedQuestions.add(id); updateReadiness(); }
   }
 
   // ─── OIA QUESTIONS ───────────────────────────────────────
@@ -453,43 +551,50 @@ textarea{resize:vertical;min-height:80px}
         'They want to assess your clarity, confidence, and whether your background fits the scholarship profile. This is your opening pitch.',
         introAnswer,
         'Don\'t ramble your entire life story. Don\'t start with "I was born in..." — start with who you are NOW and what you\'ve done.',
-        ['I built...', 'My background is...', 'What drives me is...', 'That\'s why KNB is the right fit']
+        ['I built...', 'My background is...', 'What drives me is...', 'That\'s why KNB is the right fit'],
+        'critical'
       )}
       ${qCard('Why did you choose Indonesia? Why UM specifically?',
         'They want to know you chose Indonesia intentionally, not as a fallback. They want genuine knowledge of their country.',
         whyIndonesiaAnswer,
         'Don\'t say "because it\'s free" or "I couldn\'t get into other scholarships." Don\'t say vague things like "Indonesia is beautiful" without substance.',
-        ['G20 member', 'fastest-growing economy', 'multicultural', 'UM\'s academic reputation', 'cross-cultural skills']
+        ['G20 member', 'fastest-growing economy', 'multicultural', 'UM\'s academic reputation', 'cross-cultural skills'],
+        'critical'
       )}
       ${qCard('Why did you apply for the KNB scholarship specifically?',
         'They want to know you understand what KNB is, what it offers, and why it aligns with your goals.',
-        `The KNB scholarship is one of the few full scholarship programs that combines academic excellence with genuine cultural immersion. It's not just tuition — it's full integration into Indonesian academic and social life. For someone from ${country}, that kind of deep immersion is irreplaceable. I want to spend these years not just learning management theory but understanding how a country like Indonesia — with its scale, its diversity, and its economic momentum — actually operates from the inside.`,
+        `The KNB scholarship is one of the few full scholarship programs that combines academic excellence with genuine cultural immersion. It's not just tuition — it's full integration into Indonesian academic and social life. For someone from ${country}, that kind of deep immersion is irreplaceable. I want to spend these years not just learning ${profile.program.toLowerCase()} theory but understanding how a country like Indonesia — with its scale, its diversity, and its economic momentum — actually operates from the inside.`,
         'Don\'t confuse KNB with other scholarships. Know what KNB stands for: Kemitraan Negara Berkembang — Developing Countries Partnership.',
-        ['Kemitraan Negara Berkembang', 'cultural immersion', 'developing nations', 'full integration', 'Indonesia partnership']
+        ['Kemitraan Negara Berkembang', 'cultural immersion', 'developing nations', 'full integration', 'Indonesia partnership'],
+        'key'
       )}
       ${qCard('How will you contribute to your home country after graduation?',
         'This is the most important question for any scholarship. They are investing in you to develop your home country — they need to hear a credible plan.',
         contributionAnswer,
         'Don\'t be vague: "I\'ll use my knowledge to help my country" is too weak. Give a concrete, specific plan.',
-        ['return to ' + country, 'apply directly to...', 'bridge between Indonesia and...', 'share knowledge', 'measurable impact']
+        ['return to ' + country, 'apply directly to...', 'bridge between Indonesia and...', 'share knowledge', 'measurable impact'],
+        'critical'
       )}
       ${qCard('What do you know about Indonesia?',
         'Cultural awareness test. They want to see you did your research and genuinely respect their country.',
         `Indonesia is the world's largest archipelago with over 17,000 islands, 270 million people, and more than 700 ethnic groups — making it one of the most culturally diverse nations on earth. It's the 4th most populous country globally and a G20 member. The economy is the largest in Southeast Asia, with strong sectors in manufacturing, digital technology, and natural resources. Jakarta is being replaced by Nusantara as the new capital — a massive infrastructure and governance project. Indonesia's commitment to education is growing rapidly, and universities like UM are central to that mission. ${indonesia}`,
         'Don\'t only mention Bali. Don\'t say generic things like "it\'s a beautiful country with nice food."',
-        ['17,000 islands', '270 million people', 'largest in Southeast Asia', 'G20', 'Nusantara', 'multicultural']
+        ['17,000 islands', '270 million people', 'largest in Southeast Asia', 'G20', 'Nusantara', 'multicultural'],
+        'key'
       )}
       ${qCard('Are you prepared to study in Bahasa Indonesia?',
         'They want to assess your readiness and seriousness. This is also a psychologist-adjacent question about adaptability.',
         `I understand that some courses may be taught in Bahasa Indonesia, and I'm fully prepared to commit to learning it. I've already started familiarizing myself with basic phrases and the grammatical structure. Indonesian is considered one of the easier languages for non-native speakers to learn because it doesn't have complex tonal systems or gendered nouns. I plan to take language classes, immerse myself in the local environment, and be speaking conversational Bahasa within my first semester. I've managed to adapt to challenging environments before, and language is a challenge I'm genuinely excited to take on.`,
         'Don\'t say "I\'ll just use Google Translate." Don\'t act like it\'s not a concern at all either — acknowledge it honestly.',
-        ['already started learning', 'committed to immersion', 'within first semester', 'conversational by...', 'excited by the challenge']
+        ['already started learning', 'committed to immersion', 'within first semester', 'conversational by...', 'excited by the challenge'],
+        'standard'
       )}
       ${qCard('Do you have any questions for us?',
         'This is your chance to show genuine curiosity and leave a strong final impression.',
         `Yes — two questions if that\'s okay:\n\n1. "What does a typical academic semester look like for international students at UM, especially in terms of support for language adaptation?"\n\n2. "Are there opportunities for international students to engage with local Indonesian businesses or research projects during the program?"\n\nThese show you\'re thinking about the experience seriously, not just trying to win the scholarship.`,
         'Don\'t say "No, I think I got everything." Always have questions ready.',
-        ['what support is available', 'typical semester', 'industry exposure', 'research opportunities']
+        ['what support is available', 'typical semester', 'industry exposure', 'research opportunities'],
+        'bonus'
       )}
     `;
     document.getElementById('tab-oia').innerHTML = htmlOIA;
@@ -499,63 +604,92 @@ textarea{resize:vertical;min-height:80px}
   function buildProgram() {
     const bg = profile.background;
     const goal = profile.goal;
+    const prog = profile.program;
+    const country = profile.country;
 
-    const whyMgmtAnswer = bg === 'founder'
-      ? `I chose Management because I've been practicing it without knowing the formal name for it. Running a business — making decisions about product, people, finances, and growth — is fundamentally management. But I've been doing it instinctively, without the formal frameworks. I want to study organizational behavior, strategic management, and financial theory so that what I'm doing intuitively becomes something I can do deliberately and at greater scale. Management is the science behind everything I've already been doing.`
-      : `Management is the field that sits at the intersection of everything — strategy, people, finance, operations. What attracts me to it specifically is its applicability: management principles are not industry-specific. A strong management education gives you tools that work whether you're running a company, a nonprofit, a government department, or a research institution. I want that kind of foundational, versatile knowledge as the base of my career.`;
+    const programData = {
+      'Management':      { why: 'strategy, people, finance, operations — the intersection of everything', research: 'entrepreneurship & strategic management, digital business models in developing markets', field: 'organizational behavior, strategic planning, financial management', indonesia: 'rapidly growing business ecosystem and largest SE Asian economy' },
+      'Economics':       { why: 'understanding how resources are allocated at scale — from households to nations', research: 'development economics, behavioral economics, Southeast Asian trade policy', field: 'microeconomics, macroeconomics, econometrics, financial modeling', indonesia: 'one of the fastest-growing emerging economies in the world' },
+      'Engineering':     { why: 'building solutions to real problems — tangible, measurable, impactful', research: 'sustainable infrastructure, smart systems, developing-world engineering challenges', field: 'applied sciences, mathematics, technical problem-solving', indonesia: 'massive ongoing infrastructure development, including the new capital Nusantara' },
+      'Computer Science':{ why: 'technology is the leverage point for every sector — I want to build the tools that change industries', research: 'AI applications in developing markets, mobile-first software for emerging economies', field: 'algorithms, software engineering, data systems, machine learning', indonesia: 'one of SE Asia\'s largest digital economies, rapidly growing tech startup scene' },
+      'Education':       { why: 'education is the root system of every other kind of progress — it\'s the highest leverage field', research: 'pedagogy innovation, inclusive education, curriculum design for diverse learners', field: 'learning theory, curriculum development, classroom psychology, educational policy', indonesia: 'rapidly expanding education system serving 270 million people across thousands of islands' },
+      'Science':         { why: 'science gives us the most reliable method we have for understanding reality — and Indonesia is a living laboratory', research: 'biodiversity, environmental science, tropical ecology, climate resilience', field: 'research methodology, data analysis, laboratory sciences', indonesia: 'world\'s most biodiverse archipelago with unique ecological systems' },
+      'Social Science':  { why: 'understanding how societies function, how institutions form, and how communities change is foundational to any meaningful work', research: 'development sociology, political institutions in pluralist democracies, community resilience', field: 'research methods, social theory, policy analysis', indonesia: '700+ ethnic groups in a democratic framework — the most complex social experiment in the world' },
+      'Communication':   { why: 'in a world of information overload, the ability to communicate clearly and strategically is a superpower', research: 'digital media in developing markets, cross-cultural communication, social media influence', field: 'media theory, journalism, public relations, digital communication', indonesia: 'fourth largest social media user base in the world, vibrant media landscape' },
+      'Law':             { why: 'law is the framework within which everything else operates — I want to understand and shape that framework', research: 'international trade law, human rights in Southeast Asia, comparative legal systems', field: 'legal research, constitutional law, international relations', indonesia: 'complex legal system integrating customary, civil, and Islamic law — unique research opportunity' },
+      'Health':          { why: 'public health sits at the intersection of science, policy, and human dignity — no field has greater real-world impact', research: 'community health in developing nations, tropical medicine, health system strengthening', field: 'epidemiology, biostatistics, health policy, clinical skills', indonesia: 'diverse health challenges across 17,000 islands — a public health researcher\'s most complex case study' },
+      'Agriculture':     { why: 'food security and environmental sustainability are the defining challenges of our generation — and they start with agriculture', research: 'sustainable farming systems, food security policy, climate-resilient agriculture', field: 'agronomy, soil science, agricultural economics, environmental management', indonesia: 'one of the world\'s largest agricultural producers, facing urgent sustainability challenges' },
+      'Arts':            { why: 'art and design shape how people understand the world — they are not decorative, they are communicative', research: 'cross-cultural design, traditional Indonesian craft and contemporary application, visual communication', field: 'design thinking, visual arts, architecture, creative problem-solving', indonesia: 'extraordinary artistic heritage spanning batik, wayang, gamelan, and contemporary art movements' },
+      'Language':        { why: 'language is the code through which culture, identity, and knowledge are transmitted — studying it deeply reveals everything else', research: 'sociolinguistics, language preservation, multilingual education policy', field: 'linguistic analysis, translation studies, literature, cultural theory', indonesia: '700+ regional languages alongside Bahasa Indonesia — a sociolinguist\'s dream context' },
+      'Other':           { why: 'this field represents an area of genuine passion and purpose for me, with real relevance to Indonesia\'s development trajectory', research: 'the intersection of my field with Indonesia\'s specific context and challenges', field: 'the relevant academic foundations and applied skills in my discipline', indonesia: 'a compelling context for research and professional application in my field' }
+    };
 
-    const researchAnswer = bg === 'founder'
-      ? `My research interest sits at the intersection of entrepreneurship and strategic management — specifically, how early-stage businesses can build sustainable organizational structures without losing the agility that makes startups effective. I'm also interested in digital business models and how management theory applies to technology companies in developing markets. Indonesia is a fascinating case study for this — a large, mobile-first market with a rapidly growing startup ecosystem.`
-      : `I'm drawn to organizational behavior and strategic management — specifically, how management decisions at the leadership level cascade down through teams and affect outcomes. I'm also interested in the Indonesian business context as a research subject — understanding how traditional management practices intersect with modern corporate structures in a developing economy with this level of cultural diversity is genuinely unique.`;
+    const pd = programData[prog] || programData['Other'];
+
+    const whyAnswer = bg === 'founder'
+      ? `I chose ${prog} because I've been operating in its domain without the formal foundation. Everything I've built and run has involved ${pd.field} — but I've been doing it instinctively. I want the formal framework so that what I do intuitively becomes something I can do deliberately, teach to others, and scale. ${prog} is the science behind what I've already been practicing.`
+      : `${prog} drew me in because of its direct connection to real-world change. Specifically, ${pd.why}. I want a foundational education that gives me tools I can apply across contexts — and ${prog} at UM does exactly that.`;
+
+    const researchAnswer = `My research interest centers on ${pd.research}. Indonesia is a uniquely compelling context for this because of its ${pd.indonesia}. I want to study not just the theory but the application — and being physically in Indonesia means every class, every conversation, and every observation outside the classroom becomes part of the research.`;
+
+    const backgroundAnswer = bg === 'founder'
+      ? `My background is applied rather than purely academic — I've been building and running a real product, which required me to develop skills in ${pd.field} through direct experience. I've self-studied extensively to fill theoretical gaps. I bring a perspective that most students won't have: I've already made decisions with real consequences in this domain. That makes the classroom a place where I can connect theory to lived experience, not just absorb it.`
+      : `My academic background has given me a solid grounding in ${pd.field}. [Add specific coursework, grades, projects, or relevant experience here.] These experiences have built both my theoretical knowledge and my ability to apply it in real situations.`;
 
     const fiveYearsAnswer = goal === 'business'
-      ? `In five years, I see myself running a business with real organizational depth — not just a product, but a company. The management degree from UM will give me the formal foundation I need to build a proper team, create systems, and think about long-term strategy. I also want to have established a professional connection between ${profile.country} and Indonesia — whether that's partnerships, exports, or shared knowledge.`
+      ? `In five years, I want to be operating at a level where my ${prog} degree is visibly driving outcomes — building something, leading something, or applying my expertise to a real organization with real stakes. The UM credential gives me an international foundation and a regional understanding of Southeast Asia. I also want to have built a genuine professional bridge between ${country} and Indonesia.`
       : goal === 'career'
-      ? `In five years, I want to be in a senior management or strategy role in an organization that operates at scale. The UM degree gives me an international credential and a regional understanding of Southeast Asia that few candidates from ${profile.country} will have. I want to be someone who bridges the gap between the South Asian and Southeast Asian business worlds.`
-      : `In five years, I want to be making a tangible contribution — whether through research, teaching, or leading an organization. The UM experience will give me both the knowledge and the network to do that meaningfully.`;
+      ? `In five years, I want to be in a role where my expertise in ${prog} is a genuine differentiator — someone who combines international academic credentials with a deep understanding of Southeast Asian context. That combination is genuinely rare for someone from ${country}.`
+      : `In five years, I want to be contributing meaningfully to my field — through research, teaching, or applied work that makes a difference. The UM experience will give me the knowledge, the network, and the perspective to do that at a level I couldn't reach otherwise.`;
 
     const htmlProgram = `
       <div class="section-header">
         <h3>Study Program Panelist</h3>
         <span class="panelist-badge badge-program">Academic & Field Focus</span>
       </div>
-      ${qCard('Why did you choose Management as your field of study?',
-        'They want to confirm you\'re academically motivated, not just looking for any scholarship. Show genuine connection to the field.',
-        whyMgmtAnswer,
-        'Don\'t say "because management is useful for everything." That\'s too generic. Connect it to YOUR specific background or goals.',
-        ['organizational behavior', 'strategic management', 'decision-making', 'real-world application', 'scale']
+      <div class="section-divider">About your field</div>
+      ${qCard(`Why did you choose ${prog} as your field of study?`,
+        'They want to confirm you\'re academically motivated and that your choice wasn\'t random. Show a genuine connection.',
+        whyAnswer,
+        `Don't say "${prog} is a useful degree." That's too generic. Connect it directly to YOUR story or goals.`,
+        [prog.toLowerCase(), pd.field.split(',')[0], 'real-world application', 'deliberate choice', 'genuine passion'],
+        'critical'
       )}
-      ${qCard('What area of Management interests you most?',
-        'They want to see depth of knowledge and genuine academic curiosity. Shows you\'ve thought beyond just "I want to study management."',
+      ${qCard(`What area of ${prog} interests you most?`,
+        'They want to see academic depth. Shows you\'ve thought beyond "I want to study this subject."',
         researchAnswer,
-        'Don\'t say "all areas interest me equally." Pick 1-2 and explain WHY with specifics.',
-        ['entrepreneurship', 'strategic management', 'organizational behavior', 'digital business models', 'developing markets']
+        'Don\'t say "all areas equally." Pick 1-2 specific sub-fields and explain WHY with Indonesia context.',
+        pd.research.split(',').slice(0,3).concat(['Indonesia context', 'developing markets']),
+        'key'
       )}
-      ${qCard('What is your academic or professional background related to Management?',
-        'They\'re assessing your readiness for the program. They want to know you won\'t struggle with the coursework.',
-        bg === 'founder'
-          ? `My background is unconventional but highly relevant. I've been building and managing a real product — handling everything from product strategy and user acquisition to financial management and team coordination. I've self-studied extensively: strategic planning frameworks, product management methodologies, financial basics. My experience is applied rather than academic, which I believe gives me a unique and valuable perspective in a classroom setting.`
-          : `I have a solid academic foundation in management and business principles. [Describe your relevant coursework, grades, projects, or work experience here.] These experiences have given me both theoretical knowledge and practical insight into how management works in real contexts.`,
-        'Don\'t apologize for gaps. Reframe everything as a strength.',
-        ['applied experience', 'self-studied', 'real-world context', 'unique perspective', 'classroom value']
+      ${qCard(`What is your academic or professional background related to ${prog}?`,
+        'They\'re checking you\'re ready for the program. Reframe everything as a strength.',
+        backgroundAnswer,
+        'Don\'t apologize for gaps. Every experience is relevant if you frame it right.',
+        ['applied experience', 'self-studied', 'real-world context', 'unique perspective', 'classroom value'],
+        'standard'
       )}
+      <div class="section-divider">Career & Goals</div>
       ${qCard('Where do you see yourself professionally in 5-10 years?',
-        'They want to confirm your goals align with what a Management degree provides. Show ambition with a realistic plan.',
+        'They want to confirm your ambition matches what the degree provides. Show direction with realistic confidence.',
         fiveYearsAnswer,
-        'Don\'t say "I\'m not sure yet." Have a clear direction, even if details might change.',
-        ['senior management', 'organizational leadership', 'international perspective', 'bridge between countries', 'scale']
+        'Don\'t say "I\'m not sure yet." Have a clear direction. Don\'t say "CEO of a Fortune 500" — be believable.',
+        ['international credential', 'bridge between countries', `${prog.toLowerCase()} expertise`, 'Southeast Asia', 'real contribution'],
+        'key'
       )}
-      ${qCard('How does studying Management in Indonesia align with your career goals?',
-        'This connects the academic choice to the geographic choice. Your answer should make them think "of course — Indonesia makes perfect sense for this person."',
-        `Indonesia is one of the most compelling places in the world to study management right now. It has the world's 4th largest population, the largest economy in Southeast Asia, and one of the fastest-growing digital markets globally. For someone whose goals involve ${profile.goal === 'business' ? 'scaling a business in a high-growth environment' : 'understanding how management works at national scale'}, Indonesia is not just relevant — it's ideal. Studying management here means studying it in a live laboratory. Every case study could be about something happening outside my window.`,
-        'Don\'t make it sound like Indonesia was a coincidence or second choice.',
-        ['largest in Southeast Asia', 'high-growth market', 'live laboratory', 'uniquely positioned', 'ASEAN hub']
+      ${qCard(`How does studying ${prog} in Indonesia specifically align with your goals?`,
+        'This connects the academic choice to the geographic one. Make it sound inevitable, not coincidental.',
+        `Indonesia is an ideal place to study ${prog} because of its ${pd.indonesia}. For someone with my goals, this isn't just a convenient scholarship destination — it's a place where the subject I'm studying is actively being shaped in real time. Studying ${prog} here means studying it in a live context, not just a textbook. Every day outside the classroom is supplementary education.`,
+        'Don\'t make Indonesia sound like a nice bonus. Make it sound like a core reason.',
+        ['live laboratory', 'uniquely positioned', pd.indonesia.split(',')[0], 'ASEAN hub', 'real-time context'],
+        'standard'
       )}
       ${qCard('Do you have any research interests you\'d like to pursue at UM?',
-        'They want to see you\'ve thought about your academic life at UM beyond just "attending classes."',
-        `Yes — I\'m particularly interested in exploring how management theory applies to ${bg === 'founder' ? 'digital and tech-driven businesses in developing markets, specifically comparing the Indonesian startup ecosystem with emerging tech scenes in other developing countries.' : 'organizational culture in large, culturally diverse organizations — and Indonesia, with its hundreds of ethnic groups operating within unified institutions, offers a uniquely rich case study.'} I'd love to connect with faculty working in these areas and potentially contribute to existing research projects during my time at UM.`,
-        'Don\'t say you have no research interests. Even a general direction is better than nothing.',
-        ['research interest in...', 'connect with faculty', 'contribute to projects', 'case study', 'thesis direction']
+        'Shows you\'ve thought about academic life beyond attending class. Signals seriousness.',
+        `Yes — I\'m particularly interested in ${pd.research}. Indonesia offers a uniquely rich context for this because of ${pd.indonesia}. I'd love to connect with faculty working in these areas and potentially contribute to research projects or a thesis on this topic during my time at UM.`,
+        'Don\'t say you have no research interests. Even a general direction shows you\'re thinking ahead.',
+        ['research interest in...', 'connect with faculty', 'contribute to projects', 'Indonesia context', 'thesis topic'],
+        'bonus'
       )}
     `;
     document.getElementById('tab-program').innerHTML = htmlProgram;
@@ -573,58 +707,59 @@ textarea{resize:vertical;min-height:80px}
         <p>They are NOT trying to fail you. They want to confirm you are emotionally stable, self-aware, and can handle living abroad for multiple years. Honest, grounded, reflective answers beat perfect-sounding ones. Don't try to seem invincible — show that you know yourself.</p>
       </div>
       ${qCard('Tell me about your strengths and weaknesses.',
-        'Classic psych opener. They want self-awareness — not a list of humble brags disguised as weaknesses.',
+        'Classic psych opener. They want self-awareness — not humble brags disguised as weaknesses.',
         `Strength: I'm genuinely self-driven. I don't need external pressure to push myself — I set my own standards and I hold myself to them. I've built things independently with very little external support, which taught me to be resourceful and resilient.\n\nWeakness: I can be impatient — I expect a lot from myself and sometimes from others too. I've been working on this by learning to slow down, communicate expectations more clearly, and give people — including myself — more room to grow. It's a work in progress, but I'm aware of it.`,
         'Don\'t say "I work too hard" or "I\'m a perfectionist" — interviewers hear this every time. Don\'t say a weakness that is actually a core skill requirement.',
-        ['self-driven', 'self-aware', 'working on it', 'aware of it', 'learned from it']
+        ['self-driven', 'self-aware', 'working on it', 'aware of it', 'learned from it'],
+        'psych'
       )}
       ${qCard('How do you handle stress and pressure?',
         'They want to know you won\'t fall apart living alone in a foreign country. Show that you have real coping mechanisms.',
         `Pressure is something I've learned to work with rather than avoid. When I'm stressed, I first try to identify what specifically is causing it — vague stress is harder to handle than a named problem. Then I break it down: what's in my control right now, and what isn't? I focus energy on the first category.\n\nIn practice, I stay physically active — exercise is a real reset for me. I also talk things through with people I trust rather than bottling it up. I've been in high-pressure situations before — [mention a real example briefly] — and I came out on the other side because I focused on what I could do, not what I was afraid of.`,
         'Don\'t say "I never really get stressed." This sounds dishonest. Don\'t say stress completely overwhelms you either.',
-        ['identify the source', 'what\'s in my control', 'physical activity', 'trusted people', 'real example']
+        ['identify the source', 'what\'s in my control', 'physical activity', 'trusted people', 'real example'], 'psych'
       )}
       ${qCard('Are you comfortable living alone in a foreign country for several years?',
         'This is a key question. They\'re checking for emotional dependency or signs of homesickness that could cause dropout.',
         `Yes — and I say that not because I underestimate the challenge, but because I've thought about it seriously. Living abroad means rebuilding your social circle, adapting to new food, a new language, new norms. I know it will be uncomfortable at first — that discomfort is part of the point.\n\nI've prepared for this: I've researched Indonesian culture, I'm learning basic Bahasa, and I know that the adjustment period is real. But I'm someone who adapts by engaging — I'll find communities, build routines, and put myself in environments where I'm learning and growing. Loneliness is a real risk when you isolate yourself. I plan not to.`,
         'Don\'t say "yes, no problem" with zero acknowledgment of the challenge — it sounds naive. Don\'t overdramatize how hard it will be either.',
-        ['thought about it seriously', 'discomfort is part of the point', 'researched the culture', 'build routines', 'engage actively']
+        ['thought about it seriously', 'discomfort is part of the point', 'researched the culture', 'build routines', 'engage actively'], 'psych'
       )}
       ${qCard('Describe a difficult situation you faced and how you overcame it.',
         'Behavioral question. They want to see your problem-solving style and emotional resilience under real conditions.',
         `[Use a real situation — ideally something professional, academic, or entrepreneurial. Structure it in three parts:]\n\n1. SITUATION: "At one point, I was facing [specific challenge] — [brief context of why it was hard].\n\n2. WHAT I DID: "I didn't have anyone to solve it for me, so I [specific actions you took]. It wasn't easy — [acknowledge the struggle].\n\n3. OUTCOME + LESSON: "In the end, [what happened]. What I took from it is [genuine insight]. I still apply that now."\n\nThe most important part is the lesson. A good lesson shows growth.`,
         'Don\'t make up a situation. Don\'t use a situation where you had no real agency — pick one where YOUR choices mattered.',
-        ['specific situation', 'what I did', 'what I learned', 'still apply this', 'growth mindset']
+        ['specific situation', 'what I did', 'what I learned', 'still apply this', 'growth mindset'], 'psych'
       )}
       ${qCard('How do you handle conflict with others?',
         'They\'re assessing whether you can function in a diverse, multicultural environment without creating problems.',
         `My first instinct in conflict is to understand before I respond. I've found that most conflicts come from misaligned expectations or miscommunication — not bad intentions. So I try to slow down, listen, and ask what the other person actually needs.\n\nIf I disagree with someone, I say so directly but calmly — I don't let things fester. I'd rather have a slightly uncomfortable conversation once than an escalating problem later. In multicultural settings, I'm also aware that communication styles differ — what reads as direct in one culture can read as rude in another, and vice versa. I try to be conscious of that.`,
         'Don\'t say "I avoid conflict" — that signals passivity. Don\'t give an example where you were clearly in the right and the other person was wrong.',
-        ['understand first', 'misaligned expectations', 'direct but calm', 'multicultural awareness', 'address early']
+        ['understand first', 'misaligned expectations', 'direct but calm', 'multicultural awareness', 'address early'], 'psych'
       )}
       ${qCard('What motivates you?',
         'Simple question, but revealing. They want to see genuine drive — not "I want to succeed" platitudes.',
         `What genuinely motivates me is progress that I can measure. Not approval from others — actual change I can point to. When something I built is working, when a person I helped grew, when a skill I struggled with becomes natural — that's what keeps me going.\n\nI'm also motivated by the sense that what I'm doing matters beyond just me. Whether that's a product people use, knowledge shared, or a skill taught — I want to be creating something that outlasts the moment. That's part of why this scholarship matters to me. It's not just a degree — it's a foundation for something much larger.`,
         'Don\'t say "money" or "success." Don\'t say "my family" as your only answer — it\'s valid but undersells you.',
-        ['measurable progress', 'intrinsic motivation', 'beyond just me', 'long-term impact', 'foundation for something larger']
+        ['measurable progress', 'intrinsic motivation', 'beyond just me', 'long-term impact', 'foundation for something larger'], 'psych'
       )}
       ${qCard('How do your family and friends feel about you going abroad?',
         'They\'re looking for signs of support system strength or potential emotional complications.',
         `My family is supportive — they understand that this is an opportunity of a lifetime and they know me well enough to know I don't make decisions like this carelessly. There are worries, of course — that's natural for any parent. But they trust that I've thought this through.\n\nMy friends are genuinely excited for me. A few of them have studied or worked abroad, so they understand what it means. Their support actually reinforces my commitment — I don't want to let down the people who believed in me enough to encourage this.`,
         'Don\'t say your family is against it but you\'re going anyway — raises flags. If there\'s genuine tension, acknowledge it diplomatically but emphasize the support.',
-        ['supportive family', 'natural concerns', 'they trust my judgment', 'friends who understand', 'reinforces my commitment']
+        ['supportive family', 'natural concerns', 'they trust my judgment', 'friends who understand', 'reinforces my commitment'], 'psych'
       )}
       ${qCard('What will you miss most about home, and how will you cope?',
         'Emotional resilience check. They want to see you\'re honest about the emotional reality but have a plan.',
         `Honestly, I'll miss my family most — being close physically, sharing meals, the casual everyday contact. That's real and I don't pretend it isn't.\n\nFor coping: technology makes distance shorter — regular calls, video chats. I'll build a routine that keeps me grounded. I'll find community in Malang — other international students, local students who are curious about where I come from, sport or fitness communities, whatever connects me to people with shared interests. Isolation is a choice. I plan to make the opposite choice.`,
         'Don\'t say "nothing, I can\'t wait to leave." Don\'t be so emotional about it that you sound like you\'ll struggle badly.',
-        ['honest acknowledgment', 'technology helps', 'build routine', 'find community', 'isolation is a choice']
+        ['honest acknowledgment', 'technology helps', 'build routine', 'find community', 'isolation is a choice'], 'psych'
       )}
       ${qCard('Why should we choose you over other applicants?',
         'Direct close. Show uniqueness without arrogance.',
         `I won't claim to be better than every other applicant — I don't know them. What I can tell you is what I bring that most applicants won't:\n\nI have real experience operating under uncertainty. ${profile.background === 'founder' ? 'I\'ve built a product, made decisions with incomplete information, dealt with failure, and kept going.' : 'I\'ve pushed myself in environments that weren\'t comfortable and came out stronger.'} I'm not coming to Indonesia to coast through a degree — I'm coming to extract everything this experience has to offer and bring it back in a form that actually creates value.\n\nI'm also a low-risk candidate emotionally. I'm self-aware, I've thought seriously about the challenges, and I have a concrete plan for what comes after. That combination — drive, resilience, and a clear plan — is what you're actually investing in.`,
         'Don\'t say "I\'m the most hardworking" or "I want this more than anyone." Unverifiable and sounds desperate.',
-        ['real experience', 'operate under uncertainty', 'low-risk candidate', 'self-aware', 'concrete post-scholarship plan']
+        ['real experience', 'operate under uncertainty', 'low-risk candidate', 'self-aware', 'concrete post-scholarship plan'], 'critical'
       )}
     `;
     document.getElementById('tab-psych').innerHTML = htmlPsych;
@@ -709,6 +844,21 @@ textarea{resize:vertical;min-height:80px}
     const q = mockQuestions[mockIndex];
     document.getElementById('mock-answer-text').textContent = q.a;
     document.getElementById('mock-answer-box').classList.add('show');
+    document.getElementById('mock-rate-msg').style.display = 'none';
+  }
+
+  let mockScores = {nailed:0, ok:0, weak:0};
+  function rateMock(rating) {
+    mockScores[rating]++;
+    const msgs = {
+      nailed: '🔥 Locked in. Keep that energy.',
+      ok: '⚡ Good foundation — tighten it on the next run.',
+      weak: '📌 Flagged for retry. You\'ll nail it next time.'
+    };
+    const el = document.getElementById('mock-rate-msg');
+    el.textContent = msgs[rating];
+    el.style.display = 'block';
+    el.style.color = rating === 'nailed' ? 'var(--green)' : rating === 'ok' ? 'var(--gold)' : 'var(--red)';
   }
 
   function nextMockQ() {
