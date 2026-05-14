@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KNB 2026 Interview Prep — Universitas Negeri Malang</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f7f9fc;
+    color: #1a202c;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+    color: white;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 { font-size: clamp(22px, 5vw, 36px); font-weight: 700; margin-bottom: 8px; }
+  .hero p { font-size: 15px; opacity: 0.85; max-width: 500px; margin: 0 auto; }
+  .hero .interview-date {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 20px;
+    display: inline-block;
+    font-size: 14px;
+  }
+  .hero .interview-date strong { display: block; font-size: 18px; margin-top: 2px; }
+
+  /* COUNTDOWN */
+  .countdown-bar {
+    background: #2d3748;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  #countdown-timer { color: #68d391; font-weight: 700; }
+
+  /* CONTAINER */
+  .container { max-width: 820px; margin: 0 auto; padding: 32px 16px 80px; }
+
+  /* STEP */
+  .step { display: none; }
+  .step.active { display: block; }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1a365d;
+  }
+  .card .subtitle {
+    font-size: 13px;
+    color: #718096;
+    margin-bottom: 20px;
+  }
+
+  /* FORM */
+  .form-group { margin-bottom: 18px; }
+  label { display: block; font-size: 13px; font-weight: 600; color: #4a5568; margin-bottom: 6px; }
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1a202c;
+    background: #f7f9fc;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #2b6cb0;
+    background: white;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: #2b6cb0; color: white; }
+  .btn-primary:hover { background: #2c5282; }
+  .btn-secondary { background: #edf2f7; color: #4a5568; }
+  .btn-secondary:hover { background: #e2e8f0; }
+  .btn-danger { background: #fc8181; color: white; }
+  .btn-sm { padding: 8px 16px; font-size: 13px; }
+
+  /* PANELIST TABS */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    background: #edf2f7;
+    color: #4a5568;
+  }
+  .tab.active { background: #2b6cb0; color: white; border-color: #2b6cb0; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* QUESTION CARD */
+  .q-card {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .q-header {
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7f9fc;
+    user-select: none;
+  }
+  .q-header:hover { background: #edf2f7; }
+  .q-header .q-text { font-size: 14px; font-weight: 600; color: #2d3748; flex: 1; }
+  .q-header .q-icon { font-size: 18px; color: #718096; transition: transform 0.2s; }
+  .q-card.open .q-icon { transform: rotate(180deg); }
+  .q-body { display: none; padding: 18px; border-top: 1.5px solid #e2e8f0; }
+  .q-card.open .q-body { display: block; }
+
+  .q-section { margin-bottom: 14px; }
+  .q-section:last-child { margin-bottom: 0; }
+  .q-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #2b6cb0;
+    margin-bottom: 6px;
+  }
+  .q-section p { font-size: 14px; line-height: 1.65; color: #4a5568; }
+  .q-section .answer-box {
+    background: #ebf8ff;
+    border-left: 3px solid #2b6cb0;
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #2d3748;
+    white-space: pre-wrap;
+  }
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .keyword {
+    background: #ebf8ff;
+    color: #2b6cb0;
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .warning-box {
+    background: #fff5f5;
+    border-left: 3px solid #fc8181;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #742a2a;
+  }
+
+  /* MOCK INTERVIEW */
+  .mock-wrapper { text-align: center; }
+  .mock-question-display {
+    background: linear-gradient(135deg, #1a365d, #2b6cb0);
+    color: white;
+    border-radius: 14px;
+    padding: 40px 30px;
+    margin: 20px 0;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mock-question-display p {
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .mock-panelist-badge {
+    font-size: 11px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .timer-display {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2b6cb0;
+    margin: 16px 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-display.warning { color: #e53e3e; }
+  .mock-answer-reveal {
+    background: #ebf8ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+    text-align: left;
+    display: none;
+  }
+  .mock-answer-reveal.show { display: block; }
+  .mock-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .progress-bar-wrap { background: #e2e8f0; border-radius: 8px; height: 6px; margin: 12px 0; }
+  .progress-bar-fill { background: #2b6cb0; height: 6px; border-radius: 8px; transition: width 0.3s; }
+
+  /* CHECKLIST */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #2b6cb0;
+    flex-shrink: 0;
+  }
+  .checklist-item label {
+    font-size: 14px;
+    color: #2d3748;
+    cursor: pointer;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .checklist-item.checked label { text-decoration: line-through; color: #a0aec0; }
+
+  /* NAV */
+  .nav-bottom {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 16px;
+    z-index: 100;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: #edf2f7;
+    color: #4a5568;
+    transition: all 0.2s;
+  }
+  .nav-btn.active, .nav-btn:hover { background: #2b6cb0; color: white; }
+
+  /* TIPS */
+  .tip-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .tip-row:last-child { border-bottom: none; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; }
+
+  /* PROFILE DISPLAY */
+  .profile-chip {
+    display: inline-block;
+    background: #ebf8ff;
+    color: #2b6cb0;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 3px;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-header h3 { font-size: 16px; font-weight: 700; color: #1a365d; }
+  .panelist-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-oia { background: #e9d8fd; color: #553c9a; }
+  .badge-program { background: #c6f6d5; color: #276749; }
+  .badge-psych { background: #fed7d7; color: #9b2c2c; }
+
+  @media (max-width: 600px) {
+    .card { padding: 18px; }
+    .hero { padding: 32px 16px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">KNB Scholarship 2026</div>
+  <h1>UM Interview Prep Guide</h1>
+  <p>Universitas Negeri Malang — Faculty of Economics, Management</p>
+  <div class="interview-date">
+    Interview Day
+    <strong>Tuesday, May 19, 2026 &nbsp;·&nbsp; 11:30 AM GMT+7</strong>
+  </div>
+</div>
+
+<div class="countdown-bar">
+  Time until your interview: <span id="countdown-timer">calculating...</span>
+</div>
+
+<div class="container">
+
+  <!-- STEP 1: PROFILE SETUP -->
+  <div class="step active" id="step-setup">
+    <div class="card">
+      <h2>Set Up Your Profile</h2>
+      <p class="subtitle">Takes 2 minutes. Your answers will tailor every response framework to your background.</p>
+
+      <div class="form-group">
+        <label>Your Full Name</label>
+        <input type="text" id="f-name" placeholder="e.g. Sahil Kumar" />
+      </div>
+      <div class="form-group">
+        <label>Your Country</label>
+        <input type="text" id="f-country" placeholder="e.g. India, Oman, Nigeria..." />
+      </div>
+      <div class="form-group">
+        <label>Study Program Applied For</label>
+        <input type="text" id="f-program" value="Management (S1)" />
+      </div>
+      <div class="form-group">
+        <label>Your Background</label>
+        <select id="f-background">
+          <option value="founder">Founder / Entrepreneur</option>
+          <option value="student">Current University Student</option>
+          <option value="freshgrad">Fresh Graduate</option>
+          <option value="professional">Working Professional</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Primary Goal for This Scholarship</label>
+        <select id="f-goal">
+          <option value="business">Scale / build a business using management knowledge</option>
+          <option value="career">Advance my career in management/corporate world</option>
+          <option value="research">Academic research and teaching</option>
+          <option value="social">Social impact / public sector / NGO</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>In 2-3 sentences, what is your story? (What have you done / who are you?)</label>
+        <textarea id="f-story" placeholder="e.g. I built a tech startup called WEEBJI OS, a gamified productivity app with users in 10 countries. I'm 20 years old, based in Oman, and I've been building products since I was 18..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>What do you know about Indonesia / UM? (anything — culture, economy, your research)</label>
+        <textarea id="f-indonesia" placeholder="e.g. Indonesia is the 4th most populous country, a G20 member, rapidly growing digital economy..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>What is your biggest concern about this interview?</label>
+        <select id="f-concern">
+          <option value="psychologist">The psychologist questions — I don't know what to expect</option>
+          <option value="bahasa">Being asked about Bahasa Indonesia readiness</option>
+          <option value="why">Explaining why I chose Indonesia over other countries</option>
+          <option value="goals">Articulating my post-scholarship plans clearly</option>
+          <option value="pressure">Handling pressure / unexpected questions</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" onclick="buildGuide()" style="width:100%;margin-top:8px;">
+        Generate My Interview Guide →
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: FULL PREP GUIDE -->
+  <div class="step" id="step-guide">
+    <div class="card" id="profile-summary"></div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('oia', this)">🏛 OIA Panelist</div>
+      <div class="tab" onclick="switchTab('program', this)">📚 Program Panelist</div>
+      <div class="tab" onclick="switchTab('psych', this)">🧠 Psychologist</div>
+    </div>
+
+    <div class="tab-content active" id="tab-oia"></div>
+    <div class="tab-content" id="tab-program"></div>
+    <div class="tab-content" id="tab-psych"></div>
+  </div>
+
+  <!-- STEP 3: MOCK INTERVIEW -->
+  <div class="step" id="step-mock">
+    <div class="card mock-wrapper">
+      <h2>Mock Interview</h2>
+      <p class="subtitle">Questions appear one by one. Think, then reveal the model answer. 90 seconds per question.</p>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="mock-progress" style="width:0%"></div>
+      </div>
+      <p style="font-size:12px;color:#718096;margin-bottom:4px;" id="mock-counter">Question 0 / 0</p>
+
+      <div class="mock-question-display" id="mock-q-display">
+        <div>
+          <div class="mock-panelist-badge" id="mock-panelist-label"></div>
+          <p id="mock-q-text">Press Start to begin your mock interview</p>
+        </div>
+      </div>
+
+      <div class="timer-display" id="mock-timer">1:30</div>
+
+      <div class="mock-controls">
+        <button class="btn btn-primary" id="mock-start-btn" onclick="startMock()">Start Mock Interview</button>
+        <button class="btn btn-secondary" id="mock-reveal-btn" onclick="revealAnswer()" style="display:none">Reveal Answer</button>
+        <button class="btn btn-secondary" id="mock-next-btn" onclick="nextMockQ()" style="display:none">Next Question →</button>
+        <button class="btn btn-secondary btn-sm" id="mock-restart-btn" onclick="restartMock()" style="display:none">Restart</button>
+      </div>
+
+      <div class="mock-answer-reveal" id="mock-answer-box">
+        <div class="q-label">Model Answer Framework</div>
+        <div id="mock-answer-text" style="font-size:14px;line-height:1.7;color:#2d3748;margin-top:6px;white-space:pre-wrap;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: TIPS + CHECKLIST -->
+  <div class="step" id="step-tips">
+    <div class="card">
+      <h2>Interview Day Checklist</h2>
+      <p class="subtitle">Check each one off as you complete it.</p>
+
+      <div id="checklist-container"></div>
+    </div>
+
+    <div class="card">
+      <h2>Interview Tips — UM Specific</h2>
+      <div>
+        <div class="tip-row"><div class="tip-icon">🕐</div><div><strong>Log in 15 minutes early.</strong> They explicitly said this. Be in the Zoom waiting room by 11:15 AM GMT+7 (9:45 AM India time). A late entry is instant disqualification.</div></div>
+        <div class="tip-row"><div class="tip-icon">👔</div><div><strong>Wear formal attire — full upper body.</strong> Button-up shirt minimum. No casual T-shirts. The camera sees your shoulders up, but dress fully formal to feel confident.</div></div>
+        <div class="tip-row"><div class="tip-icon">🌐</div><div><strong>Test your internet the night before.</strong> Use speedtest.net. Run a Zoom test call. If your connection is unstable, use a hotspot as backup — have it ready.</div></div>
+        <div class="tip-row"><div class="tip-icon">📷</div><div><strong>Camera at eye level.</strong> Don't look down at a laptop on a table. Stack books under it. Eye contact = confidence.</div></div>
+        <div class="tip-row"><div class="tip-icon">🔇</div><div><strong>Silent room, no interruptions.</strong> Tell everyone in your house. Put your phone on silent. Close unnecessary browser tabs. Use headphones with a mic for clear audio.</div></div>
+        <div class="tip-row"><div class="tip-icon">🇮🇩</div><div><strong>Say a word or two in Bahasa Indonesia.</strong> Even "Selamat pagi, terima kasih banyak" at the start or end. It shows cultural effort and they love it.</div></div>
+        <div class="tip-row"><div class="tip-icon">⏱</div><div><strong>Keep answers to 90-120 seconds max.</strong> Interviewers ask 3 panelists' worth of questions in limited time. Be concise, clear, confident. Don't ramble.</div></div>
+        <div class="tip-row"><div class="tip-icon">📝</div><div><strong>Have notes — but don't read from them.</strong> Keep key bullet points visible off-screen. Glance only if you freeze. Maintain eye contact with the camera, not your notes.</div></div>
+        <div class="tip-row"><div class="tip-icon">🧘</div><div><strong>Pause before answering.</strong> A 2-3 second pause after a question looks like you're thinking — not panicking. Never rush to fill silence.</div></div>
+        <div class="tip-row"><div class="tip-icon">💬</div><div><strong>English is preferred, Bahasa Indonesia is fine.</strong> Answer in the language you're most comfortable and articulate in. Don't try Bahasa if you'll stumble — fluent English beats broken Bahasa.</div></div>
+        <div class="tip-row"><div class="tip-icon">❓</div><div><strong>Prepare 1-2 questions to ask them.</strong> At the end they'll say "any questions?" Have something ready: "What does a typical academic day look like for international students at UM?" This shows genuine interest.</div></div>
+        <div class="tip-row"><div class="tip-icon">🌟</div><div><strong>They already liked you enough to interview you.</strong> You passed the initial screening. Walk in with that confidence. They're not trying to trick you — they want to see if you're the right fit.</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Bahasa Indonesia Survival Phrases</h2>
+      <p class="subtitle">Drop one or two of these — it goes a long way.</p>
+      <div>
+        <div class="tip-row"><div class="tip-icon">🗣</div><div><strong>Selamat pagi / siang</strong> — Good morning / Good afternoon</div></div>
+        <div class="tip-row"><div class="tip-icon">🗣</div><div><strong>Terima kasih banyak</strong> — Thank you very much</div></div>
+        <div class="tip-row"><div class="tip-icon">🗣</div><div><strong>Saya sangat senang bisa hadir di sini</strong> — I am very happy to be here</div></div>
+        <div class="tip-row"><div class="tip-icon">🗣</div><div><strong>Saya siap belajar Bahasa Indonesia</strong> — I am ready to learn Bahasa Indonesia</div></div>
+        <div class="tip-row"><div class="tip-icon">🗣</div><div><strong>Indonesia adalah negara yang luar biasa</strong> — Indonesia is an amazing country</div></div>
+        <div class="tip-row"><div class="tip-icon">🗣</div><div><strong>Sampai jumpa / Terima kasih</strong> — Goodbye / Thank you (closing)</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="nav-bottom">
+  <button class="nav-btn" id="nav-setup" onclick="goStep('setup')">⚙ Profile</button>
+  <button class="nav-btn" id="nav-guide" onclick="goStep('guide')">📋 Prep Guide</button>
+  <button class="nav-btn" id="nav-mock" onclick="goStep('mock')">🎤 Mock Interview</button>
+  <button class="nav-btn" id="nav-tips" onclick="goStep('tips')">✅ Tips & Checklist</button>
+</div>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────
+  let profile = {};
+  let mockQuestions = [];
+  let mockIndex = 0;
+  let mockTimer = null;
+  let mockSeconds = 90;
+  let mockStarted = false;
+
+  // ─── COUNTDOWN ───────────────────────────────────────────
+  function updateCountdown() {
+    const target = new Date('2026-05-19T04:30:00Z'); // 11:30 AM GMT+7 = 04:30 UTC
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) { document.getElementById('countdown-timer').textContent = 'Interview time — good luck!'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('countdown-timer').textContent =
+      (d > 0 ? d + 'd ' : '') + h + 'h ' + m + 'm ' + s + 's';
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ─── NAVIGATION ──────────────────────────────────────────
+  function goStep(name) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('step-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ─── TAB SWITCHING ───────────────────────────────────────
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // ─── BUILD GUIDE ─────────────────────────────────────────
+  function buildGuide() {
+    profile = {
+      name: document.getElementById('f-name').value.trim() || 'You',
+      country: document.getElementById('f-country').value.trim() || 'your country',
+      program: document.getElementById('f-program').value.trim() || 'Management',
+      background: document.getElementById('f-background').value,
+      goal: document.getElementById('f-goal').value,
+      story: document.getElementById('f-story').value.trim(),
+      indonesia: document.getElementById('f-indonesia').value.trim(),
+      concern: document.getElementById('f-concern').value
+    };
+
+    buildProfileSummary();
+    buildOIA();
+    buildProgram();
+    buildPsych();
+    buildMockPool();
+    buildChecklist();
+    goStep('guide');
+  }
+
+  function buildProfileSummary() {
+    const bgMap = { founder: 'Founder / Entrepreneur', student: 'University Student', freshgrad: 'Fresh Graduate', professional: 'Working Professional' };
+    const goalMap = { business: 'Build / scale a business', career: 'Corporate career advancement', research: 'Academic research', social: 'Social impact / NGO' };
+    document.getElementById('profile-summary').innerHTML = `
+      <h2>Your Prep Guide, ${profile.name}</h2>
+      <p class="subtitle">All answer frameworks are tailored to your profile below.</p>
+      <div style="margin-top:10px">
+        <span class="profile-chip">📍 ${profile.country}</span>
+        <span class="profile-chip">📚 ${profile.program}</span>
+        <span class="profile-chip">👤 ${bgMap[profile.background]}</span>
+        <span class="profile-chip">🎯 ${goalMap[profile.goal]}</span>
+      </div>
+      ${profile.story ? `<div style="margin-top:14px;padding:12px;background:#f7f9fc;border-radius:8px;font-size:13px;color:#4a5568;line-height:1.6"><strong>Your story:</strong> ${profile.story}</div>` : ''}
+    `;
+  }
+
+  function qCard(question, why, framework, avoids, keywords) {
+    const id = 'q' + Math.random().toString(36).slice(2);
+    return `
+      <div class="q-card" id="${id}">
+        <div class="q-header" onclick="toggleQ('${id}')">
+          <span class="q-text">${question}</span>
+          <span class="q-icon">▼</span>
+        </div>
+        <div class="q-body">
+          <div class="q-section">
+            <div class="q-label">Why They Ask This</div>
+            <p>${why}</p>
+          </div>
+          <div class="q-section">
+            <div class="q-label">Answer Framework</div>
+            <div class="answer-box">${framework}</div>
+          </div>
+          ${avoids ? `<div class="q-section"><div class="q-label">❌ Don't Say</div><div class="warning-box">${avoids}</div></div>` : ''}
+          ${keywords ? `<div class="q-section"><div class="q-label">Key Phrases to Use</div><div class="keywords">${keywords.map(k => `<span class="keyword">${k}</span>`).join('')}</div></div>` : ''}
+        </div>
+      </div>`;
+  }
+
+  function toggleQ(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  // ─── OIA QUESTIONS ───────────────────────────────────────
+  function buildOIA() {
+    const bg = profile.background;
+    const goal = profile.goal;
+    const country = profile.country;
+    const name = profile.name;
+    const indonesia = profile.indonesia || 'Indonesia is the world\'s largest archipelago, a G20 member with a rapidly growing economy and a rich multicultural heritage.';
+
+    const introAnswer = bg === 'founder'
+      ? `My name is ${name}, I'm from ${country}. I'm a founder — I built a tech product from scratch while I was still a teenager, and I've been running it independently for over a year. Through that experience, I realized that the gap in my knowledge isn't execution — it's formal management theory: organizational behavior, strategic planning, financial management. That's what I want to fill. The KNB scholarship gives me the opportunity to study management at one of Indonesia's top universities while immersing myself in one of the world's most dynamic economies.`
+      : bg === 'student'
+      ? `My name is ${name}, I'm from ${country}. I'm currently a university student with a strong academic focus in management and business. I've always been drawn to how organizations function, how decisions are made at scale, and how management principles drive real outcomes. Studying at UM under the KNB scholarship is an opportunity to gain international exposure, learn from a different educational system, and grow into a more globally aware management professional.`
+      : `My name is ${name}, I'm from ${country}. My background is in ${profile.program}, and I've spent time building both academic knowledge and real-world experience. I applied for KNB because I believe studying in Indonesia will give me a perspective I can't get anywhere else — a developing economy that is growing fast, multicultural, and deeply entrepreneurial. UM's reputation in management and its international community made it my top choice.`;
+
+    const whyIndonesiaAnswer = `Indonesia stands out to me for three reasons. First, it's the world's 4th most populous country and a G20 member — a scale that makes management education here incredibly practical. Second, Indonesia's economy is one of the fastest-growing in Southeast Asia, which means studying management here means studying management in a live, high-growth environment. Third, the cultural depth of Indonesia — hundreds of ethnic groups, multiple languages, strong traditions — means I'll develop cross-cultural communication skills that are genuinely rare. ${indonesia ? 'Specifically, I know that ' + indonesia : ''} These aren't things I can learn from a textbook in ${country}.`;
+
+    const whyUMAnswer = `I researched multiple universities and UM stood out because of its academic reputation, its strong Faculty of Economics, and its active international student community. UM is a nationally recognized university with strong ties to both the academic and professional world in Indonesia. I also appreciated that UM has a dedicated Office of International Affairs — it signals that the university takes international students seriously and has systems to support them. I want to be in an environment that challenges me academically and supports me structurally.`;
+
+    const contributionAnswer = goal === 'business'
+      ? `My plan is straightforward: I go to UM, I study management rigorously, and I come back with the formal framework to scale what I've already started. I'm already running a product in ${country}. The missing piece is structured management knowledge — organizational strategy, financial planning, team building. When I return, I won't be starting from zero. I'll be applying everything I learned to a real operation. Beyond that, I plan to share what I learned about the Indonesian business model and digital economy with peers in ${country} who are also building businesses.`
+      : goal === 'career'
+      ? `After completing my studies at UM, I plan to return to ${country} and apply the management knowledge and international perspective I've gained to a senior role in my field. I want to contribute to organizations that are scaling, and bring with me an understanding of how Indonesian and broader Southeast Asian business models work — which is increasingly relevant as ${country} deepens ties with ASEAN. I also want to be a bridge — helping Indonesian businesses understand the ${country} market and vice versa.`
+      : `After completing my studies at UM, I intend to return to ${country} and contribute through ${goal === 'research' ? 'academic research and teaching — sharing what I learned and publishing work that bridges Indonesian and ' + country + ' management perspectives.' : 'work in the social sector — applying management tools to NGOs and public institutions that need stronger organizational foundations.'} The KNB scholarship isn't just an investment in me — it's an investment in the relationship between Indonesia and ${country}.`;
+
+    const htmlOIA = `
+      <div class="section-header">
+        <h3>OIA Representative</h3>
+        <span class="panelist-badge badge-oia">Scholarship & Admin Focus</span>
+      </div>
+      ${qCard('Tell me about yourself.',
+        'They want to assess your clarity, confidence, and whether your background fits the scholarship profile. This is your opening pitch.',
+        introAnswer,
+        'Don\'t ramble your entire life story. Don\'t start with "I was born in..." — start with who you are NOW and what you\'ve done.',
+        ['I built...', 'My background is...', 'What drives me is...', 'That\'s why KNB is the right fit']
+      )}
+      ${qCard('Why did you choose Indonesia? Why UM specifically?',
+        'They want to know you chose Indonesia intentionally, not as a fallback. They want genuine knowledge of their country.',
+        whyIndonesiaAnswer,
+        'Don\'t say "because it\'s free" or "I couldn\'t get into other scholarships." Don\'t say vague things like "Indonesia is beautiful" without substance.',
+        ['G20 member', 'fastest-growing economy', 'multicultural', 'UM\'s academic reputation', 'cross-cultural skills']
+      )}
+      ${qCard('Why did you apply for the KNB scholarship specifically?',
+        'They want to know you understand what KNB is, what it offers, and why it aligns with your goals.',
+        `The KNB scholarship is one of the few full scholarship programs that combines academic excellence with genuine cultural immersion. It's not just tuition — it's full integration into Indonesian academic and social life. For someone from ${country}, that kind of deep immersion is irreplaceable. I want to spend these years not just learning management theory but understanding how a country like Indonesia — with its scale, its diversity, and its economic momentum — actually operates from the inside.`,
+        'Don\'t confuse KNB with other scholarships. Know what KNB stands for: Kemitraan Negara Berkembang — Developing Countries Partnership.',
+        ['Kemitraan Negara Berkembang', 'cultural immersion', 'developing nations', 'full integration', 'Indonesia partnership']
+      )}
+      ${qCard('How will you contribute to your home country after graduation?',
+        'This is the most important question for any scholarship. They are investing in you to develop your home country — they need to hear a credible plan.',
+        contributionAnswer,
+        'Don\'t be vague: "I\'ll use my knowledge to help my country" is too weak. Give a concrete, specific plan.',
+        ['return to ' + country, 'apply directly to...', 'bridge between Indonesia and...', 'share knowledge', 'measurable impact']
+      )}
+      ${qCard('What do you know about Indonesia?',
+        'Cultural awareness test. They want to see you did your research and genuinely respect their country.',
+        `Indonesia is the world's largest archipelago with over 17,000 islands, 270 million people, and more than 700 ethnic groups — making it one of the most culturally diverse nations on earth. It's the 4th most populous country globally and a G20 member. The economy is the largest in Southeast Asia, with strong sectors in manufacturing, digital technology, and natural resources. Jakarta is being replaced by Nusantara as the new capital — a massive infrastructure and governance project. Indonesia's commitment to education is growing rapidly, and universities like UM are central to that mission. ${indonesia}`,
+        'Don\'t only mention Bali. Don\'t say generic things like "it\'s a beautiful country with nice food."',
+        ['17,000 islands', '270 million people', 'largest in Southeast Asia', 'G20', 'Nusantara', 'multicultural']
+      )}
+      ${qCard('Are you prepared to study in Bahasa Indonesia?',
+        'They want to assess your readiness and seriousness. This is also a psychologist-adjacent question about adaptability.',
+        `I understand that some courses may be taught in Bahasa Indonesia, and I'm fully prepared to commit to learning it. I've already started familiarizing myself with basic phrases and the grammatical structure. Indonesian is considered one of the easier languages for non-native speakers to learn because it doesn't have complex tonal systems or gendered nouns. I plan to take language classes, immerse myself in the local environment, and be speaking conversational Bahasa within my first semester. I've managed to adapt to challenging environments before, and language is a challenge I'm genuinely excited to take on.`,
+        'Don\'t say "I\'ll just use Google Translate." Don\'t act like it\'s not a concern at all either — acknowledge it honestly.',
+        ['already started learning', 'committed to immersion', 'within first semester', 'conversational by...', 'excited by the challenge']
+      )}
+      ${qCard('Do you have any questions for us?',
+        'This is your chance to show genuine curiosity and leave a strong final impression.',
+        `Yes — two questions if that\'s okay:\n\n1. "What does a typical academic semester look like for international students at UM, especially in terms of support for language adaptation?"\n\n2. "Are there opportunities for international students to engage with local Indonesian businesses or research projects during the program?"\n\nThese show you\'re thinking about the experience seriously, not just trying to win the scholarship.`,
+        'Don\'t say "No, I think I got everything." Always have questions ready.',
+        ['what support is available', 'typical semester', 'industry exposure', 'research opportunities']
+      )}
+    `;
+    document.getElementById('tab-oia').innerHTML = htmlOIA;
+  }
+
+  // ─── PROGRAM QUESTIONS ───────────────────────────────────
+  function buildProgram() {
+    const bg = profile.background;
+    const goal = profile.goal;
+
+    const whyMgmtAnswer = bg === 'founder'
+      ? `I chose Management because I've been practicing it without knowing the formal name for it. Running a business — making decisions about product, people, finances, and growth — is fundamentally management. But I've been doing it instinctively, without the formal frameworks. I want to study organizational behavior, strategic management, and financial theory so that what I'm doing intuitively becomes something I can do deliberately and at greater scale. Management is the science behind everything I've already been doing.`
+      : `Management is the field that sits at the intersection of everything — strategy, people, finance, operations. What attracts me to it specifically is its applicability: management principles are not industry-specific. A strong management education gives you tools that work whether you're running a company, a nonprofit, a government department, or a research institution. I want that kind of foundational, versatile knowledge as the base of my career.`;
+
+    const researchAnswer = bg === 'founder'
+      ? `My research interest sits at the intersection of entrepreneurship and strategic management — specifically, how early-stage businesses can build sustainable organizational structures without losing the agility that makes startups effective. I'm also interested in digital business models and how management theory applies to technology companies in developing markets. Indonesia is a fascinating case study for this — a large, mobile-first market with a rapidly growing startup ecosystem.`
+      : `I'm drawn to organizational behavior and strategic management — specifically, how management decisions at the leadership level cascade down through teams and affect outcomes. I'm also interested in the Indonesian business context as a research subject — understanding how traditional management practices intersect with modern corporate structures in a developing economy with this level of cultural diversity is genuinely unique.`;
+
+    const fiveYearsAnswer = goal === 'business'
+      ? `In five years, I see myself running a business with real organizational depth — not just a product, but a company. The management degree from UM will give me the formal foundation I need to build a proper team, create systems, and think about long-term strategy. I also want to have established a professional connection between ${profile.country} and Indonesia — whether that's partnerships, exports, or shared knowledge.`
+      : goal === 'career'
+      ? `In five years, I want to be in a senior management or strategy role in an organization that operates at scale. The UM degree gives me an international credential and a regional understanding of Southeast Asia that few candidates from ${profile.country} will have. I want to be someone who bridges the gap between the South Asian and Southeast Asian business worlds.`
+      : `In five years, I want to be making a tangible contribution — whether through research, teaching, or leading an organization. The UM experience will give me both the knowledge and the network to do that meaningfully.`;
+
+    const htmlProgram = `
+      <div class="section-header">
+        <h3>Study Program Panelist</h3>
+        <span class="panelist-badge badge-program">Academic & Field Focus</span>
+      </div>
+      ${qCard('Why did you choose Management as your field of study?',
+        'They want to confirm you\'re academically motivated, not just looking for any scholarship. Show genuine connection to the field.',
+        whyMgmtAnswer,
+        'Don\'t say "because management is useful for everything." That\'s too generic. Connect it to YOUR specific background or goals.',
+        ['organizational behavior', 'strategic management', 'decision-making', 'real-world application', 'scale']
+      )}
+      ${qCard('What area of Management interests you most?',
+        'They want to see depth of knowledge and genuine academic curiosity. Shows you\'ve thought beyond just "I want to study management."',
+        researchAnswer,
+        'Don\'t say "all areas interest me equally." Pick 1-2 and explain WHY with specifics.',
+        ['entrepreneurship', 'strategic management', 'organizational behavior', 'digital business models', 'developing markets']
+      )}
+      ${qCard('What is your academic or professional background related to Management?',
+        'They\'re assessing your readiness for the program. They want to know you won\'t struggle with the coursework.',
+        bg === 'founder'
+          ? `My background is unconventional but highly relevant. I've been building and managing a real product — handling everything from product strategy and user acquisition to financial management and team coordination. I've self-studied extensively: strategic planning frameworks, product management methodologies, financial basics. My experience is applied rather than academic, which I believe gives me a unique and valuable perspective in a classroom setting.`
+          : `I have a solid academic foundation in management and business principles. [Describe your relevant coursework, grades, projects, or work experience here.] These experiences have given me both theoretical knowledge and practical insight into how management works in real contexts.`,
+        'Don\'t apologize for gaps. Reframe everything as a strength.',
+        ['applied experience', 'self-studied', 'real-world context', 'unique perspective', 'classroom value']
+      )}
+      ${qCard('Where do you see yourself professionally in 5-10 years?',
+        'They want to confirm your goals align with what a Management degree provides. Show ambition with a realistic plan.',
+        fiveYearsAnswer,
+        'Don\'t say "I\'m not sure yet." Have a clear direction, even if details might change.',
+        ['senior management', 'organizational leadership', 'international perspective', 'bridge between countries', 'scale']
+      )}
+      ${qCard('How does studying Management in Indonesia align with your career goals?',
+        'This connects the academic choice to the geographic choice. Your answer should make them think "of course — Indonesia makes perfect sense for this person."',
+        `Indonesia is one of the most compelling places in the world to study management right now. It has the world's 4th largest population, the largest economy in Southeast Asia, and one of the fastest-growing digital markets globally. For someone whose goals involve ${profile.goal === 'business' ? 'scaling a business in a high-growth environment' : 'understanding how management works at national scale'}, Indonesia is not just relevant — it's ideal. Studying management here means studying it in a live laboratory. Every case study could be about something happening outside my window.`,
+        'Don\'t make it sound like Indonesia was a coincidence or second choice.',
+        ['largest in Southeast Asia', 'high-growth market', 'live laboratory', 'uniquely positioned', 'ASEAN hub']
+      )}
+      ${qCard('Do you have any research interests you\'d like to pursue at UM?',
+        'They want to see you\'ve thought about your academic life at UM beyond just "attending classes."',
+        `Yes — I\'m particularly interested in exploring how management theory applies to ${bg === 'founder' ? 'digital and tech-driven businesses in developing markets, specifically comparing the Indonesian startup ecosystem with emerging tech scenes in other developing countries.' : 'organizational culture in large, culturally diverse organizations — and Indonesia, with its hundreds of ethnic groups operating within unified institutions, offers a uniquely rich case study.'} I'd love to connect with faculty working in these areas and potentially contribute to existing research projects during my time at UM.`,
+        'Don\'t say you have no research interests. Even a general direction is better than nothing.',
+        ['research interest in...', 'connect with faculty', 'contribute to projects', 'case study', 'thesis direction']
+      )}
+    `;
+    document.getElementById('tab-program').innerHTML = htmlProgram;
+  }
+
+  // ─── PSYCH QUESTIONS ─────────────────────────────────────
+  function buildPsych() {
+    const htmlPsych = `
+      <div class="section-header">
+        <h3>Psychologist Panelist</h3>
+        <span class="panelist-badge badge-psych">Personality & Resilience Focus</span>
+      </div>
+      <div class="card" style="background:#fff5f5;border:1.5px solid #fc8181;margin-bottom:16px;padding:16px">
+        <strong style="color:#9b2c2c">How the psychologist thinks:</strong>
+        <p style="font-size:13px;color:#742a2a;margin-top:6px;line-height:1.6">They are NOT trying to fail you. They want to confirm you are emotionally stable, self-aware, and can handle living abroad for multiple years. Honest, grounded, reflective answers beat perfect-sounding ones. Don't try to seem invincible — show that you know yourself.</p>
+      </div>
+      ${qCard('Tell me about your strengths and weaknesses.',
+        'Classic psych opener. They want self-awareness — not a list of humble brags disguised as weaknesses.',
+        `Strength: I'm genuinely self-driven. I don't need external pressure to push myself — I set my own standards and I hold myself to them. I've built things independently with very little external support, which taught me to be resourceful and resilient.\n\nWeakness: I can be impatient — I expect a lot from myself and sometimes from others too. I've been working on this by learning to slow down, communicate expectations more clearly, and give people — including myself — more room to grow. It's a work in progress, but I'm aware of it.`,
+        'Don\'t say "I work too hard" or "I\'m a perfectionist" — interviewers hear this every time. Don\'t say a weakness that is actually a core skill requirement.',
+        ['self-driven', 'self-aware', 'working on it', 'aware of it', 'learned from it']
+      )}
+      ${qCard('How do you handle stress and pressure?',
+        'They want to know you won\'t fall apart living alone in a foreign country. Show that you have real coping mechanisms.',
+        `Pressure is something I've learned to work with rather than avoid. When I'm stressed, I first try to identify what specifically is causing it — vague stress is harder to handle than a named problem. Then I break it down: what's in my control right now, and what isn't? I focus energy on the first category.\n\nIn practice, I stay physically active — exercise is a real reset for me. I also talk things through with people I trust rather than bottling it up. I've been in high-pressure situations before — [mention a real example briefly] — and I came out on the other side because I focused on what I could do, not what I was afraid of.`,
+        'Don\'t say "I never really get stressed." This sounds dishonest. Don\'t say stress completely overwhelms you either.',
+        ['identify the source', 'what\'s in my control', 'physical activity', 'trusted people', 'real example']
+      )}
+      ${qCard('Are you comfortable living alone in a foreign country for several years?',
+        'This is a key question. They\'re checking for emotional dependency or signs of homesickness that could cause dropout.',
+        `Yes — and I say that not because I underestimate the challenge, but because I've thought about it seriously. Living abroad means rebuilding your social circle, adapting to new food, a new language, new norms. I know it will be uncomfortable at first — that discomfort is part of the point.\n\nI've prepared for this: I've researched Indonesian culture, I'm learning basic Bahasa, and I know that the adjustment period is real. But I'm someone who adapts by engaging — I'll find communities, build routines, and put myself in environments where I'm learning and growing. Loneliness is a real risk when you isolate yourself. I plan not to.`,
+        'Don\'t say "yes, no problem" with zero acknowledgment of the challenge — it sounds naive. Don\'t overdramatize how hard it will be either.',
+        ['thought about it seriously', 'discomfort is part of the point', 'researched the culture', 'build routines', 'engage actively']
+      )}
+      ${qCard('Describe a difficult situation you faced and how you overcame it.',
+        'Behavioral question. They want to see your problem-solving style and emotional resilience under real conditions.',
+        `[Use a real situation — ideally something professional, academic, or entrepreneurial. Structure it in three parts:]\n\n1. SITUATION: "At one point, I was facing [specific challenge] — [brief context of why it was hard].\n\n2. WHAT I DID: "I didn't have anyone to solve it for me, so I [specific actions you took]. It wasn't easy — [acknowledge the struggle].\n\n3. OUTCOME + LESSON: "In the end, [what happened]. What I took from it is [genuine insight]. I still apply that now."\n\nThe most important part is the lesson. A good lesson shows growth.`,
+        'Don\'t make up a situation. Don\'t use a situation where you had no real agency — pick one where YOUR choices mattered.',
+        ['specific situation', 'what I did', 'what I learned', 'still apply this', 'growth mindset']
+      )}
+      ${qCard('How do you handle conflict with others?',
+        'They\'re assessing whether you can function in a diverse, multicultural environment without creating problems.',
+        `My first instinct in conflict is to understand before I respond. I've found that most conflicts come from misaligned expectations or miscommunication — not bad intentions. So I try to slow down, listen, and ask what the other person actually needs.\n\nIf I disagree with someone, I say so directly but calmly — I don't let things fester. I'd rather have a slightly uncomfortable conversation once than an escalating problem later. In multicultural settings, I'm also aware that communication styles differ — what reads as direct in one culture can read as rude in another, and vice versa. I try to be conscious of that.`,
+        'Don\'t say "I avoid conflict" — that signals passivity. Don\'t give an example where you were clearly in the right and the other person was wrong.',
+        ['understand first', 'misaligned expectations', 'direct but calm', 'multicultural awareness', 'address early']
+      )}
+      ${qCard('What motivates you?',
+        'Simple question, but revealing. They want to see genuine drive — not "I want to succeed" platitudes.',
+        `What genuinely motivates me is progress that I can measure. Not approval from others — actual change I can point to. When something I built is working, when a person I helped grew, when a skill I struggled with becomes natural — that's what keeps me going.\n\nI'm also motivated by the sense that what I'm doing matters beyond just me. Whether that's a product people use, knowledge shared, or a skill taught — I want to be creating something that outlasts the moment. That's part of why this scholarship matters to me. It's not just a degree — it's a foundation for something much larger.`,
+        'Don\'t say "money" or "success." Don\'t say "my family" as your only answer — it\'s valid but undersells you.',
+        ['measurable progress', 'intrinsic motivation', 'beyond just me', 'long-term impact', 'foundation for something larger']
+      )}
+      ${qCard('How do your family and friends feel about you going abroad?',
+        'They\'re looking for signs of support system strength or potential emotional complications.',
+        `My family is supportive — they understand that this is an opportunity of a lifetime and they know me well enough to know I don't make decisions like this carelessly. There are worries, of course — that's natural for any parent. But they trust that I've thought this through.\n\nMy friends are genuinely excited for me. A few of them have studied or worked abroad, so they understand what it means. Their support actually reinforces my commitment — I don't want to let down the people who believed in me enough to encourage this.`,
+        'Don\'t say your family is against it but you\'re going anyway — raises flags. If there\'s genuine tension, acknowledge it diplomatically but emphasize the support.',
+        ['supportive family', 'natural concerns', 'they trust my judgment', 'friends who understand', 'reinforces my commitment']
+      )}
+      ${qCard('What will you miss most about home, and how will you cope?',
+        'Emotional resilience check. They want to see you\'re honest about the emotional reality but have a plan.',
+        `Honestly, I'll miss my family most — being close physically, sharing meals, the casual everyday contact. That's real and I don't pretend it isn't.\n\nFor coping: technology makes distance shorter — regular calls, video chats. I'll build a routine that keeps me grounded. I'll find community in Malang — other international students, local students who are curious about where I come from, sport or fitness communities, whatever connects me to people with shared interests. Isolation is a choice. I plan to make the opposite choice.`,
+        'Don\'t say "nothing, I can\'t wait to leave." Don\'t be so emotional about it that you sound like you\'ll struggle badly.',
+        ['honest acknowledgment', 'technology helps', 'build routine', 'find community', 'isolation is a choice']
+      )}
+      ${qCard('Why should we choose you over other applicants?',
+        'Direct close. Show uniqueness without arrogance.',
+        `I won't claim to be better than every other applicant — I don't know them. What I can tell you is what I bring that most applicants won't:\n\nI have real experience operating under uncertainty. ${profile.background === 'founder' ? 'I\'ve built a product, made decisions with incomplete information, dealt with failure, and kept going.' : 'I\'ve pushed myself in environments that weren\'t comfortable and came out stronger.'} I'm not coming to Indonesia to coast through a degree — I'm coming to extract everything this experience has to offer and bring it back in a form that actually creates value.\n\nI'm also a low-risk candidate emotionally. I'm self-aware, I've thought seriously about the challenges, and I have a concrete plan for what comes after. That combination — drive, resilience, and a clear plan — is what you're actually investing in.`,
+        'Don\'t say "I\'m the most hardworking" or "I want this more than anyone." Unverifiable and sounds desperate.',
+        ['real experience', 'operate under uncertainty', 'low-risk candidate', 'self-aware', 'concrete post-scholarship plan']
+      )}
+    `;
+    document.getElementById('tab-psych').innerHTML = htmlPsych;
+  }
+
+  // ─── MOCK INTERVIEW ──────────────────────────────────────
+  function buildMockPool() {
+    const bg = profile.background;
+    mockQuestions = [
+      { q: 'Tell me about yourself.', panelist: 'OIA', a: `Start with who you are NOW, your background (${bg === 'founder' ? 'founder' : bg === 'student' ? 'student' : 'professional'}), what you've done, and why KNB/UM. Keep it to 90 seconds.` },
+      { q: 'Why Indonesia? Why UM specifically?', panelist: 'OIA', a: `Mention: G20, largest SE Asian economy, cultural diversity, UM\'s academic reputation, OIA support for international students. Avoid just saying "it\'s beautiful."` },
+      { q: 'How will you contribute to your home country after graduation?', panelist: 'OIA', a: `Be specific: ${bg === 'founder' ? 'Apply management knowledge to scale your existing business. Bridge Indonesia-' + profile.country + ' market connections.' : 'Career plan + knowledge transfer back to ' + profile.country + '.'}` },
+      { q: 'What do you know about Indonesia?', panelist: 'OIA', a: `Key facts: 17,000 islands, 270M people, 700+ ethnic groups, G20, largest SE Asian economy, new capital Nusantara, rapidly growing digital market.` },
+      { q: 'Are you prepared to study in Bahasa Indonesia?', panelist: 'OIA', a: `Say you've already started learning, commit to full immersion, mention Bahasa is considered one of the easier languages to learn, plan to be conversational in first semester.` },
+      { q: 'Why did you choose Management as your field of study?', panelist: 'Program', a: `${bg === 'founder' ? 'You\'ve been practicing management instinctively — now you want the formal framework. Connect management theory to real decisions you\'ve already made.' : 'Management sits at the intersection of every industry. Explain your specific academic interest.'}` },
+      { q: 'What area of Management interests you most?', panelist: 'Program', a: `Pick 1-2: Entrepreneurship, Strategic Management, Organizational Behavior, Digital Business Models. Explain WHY with specifics.` },
+      { q: 'Where do you see yourself professionally in 5-10 years?', panelist: 'Program', a: `${profile.goal === 'business' ? 'Running a company with organizational depth. Using UM management degree as the foundation.' : 'Senior management/strategy role with an international perspective connecting ' + profile.country + ' and SE Asia.'}` },
+      { q: 'How does studying Management in Indonesia align with your career goals?', panelist: 'Program', a: `Indonesia = live laboratory for management. Largest SE Asian economy. High-growth digital market. Unique multicultural organizational context.` },
+      { q: 'Tell me about your strengths and weaknesses.', panelist: 'Psychologist', a: `Strength: genuinely self-driven, built things independently.\nWeakness: impatience/high standards — be specific and show you\'re actively working on it. Not a humble brag.` },
+      { q: 'How do you handle stress and pressure?', panelist: 'Psychologist', a: `1. Identify what\'s causing it specifically. 2. Separate what\'s in your control from what isn\'t. 3. Physical activity as reset. 4. Talk to trusted people. Give a real example.` },
+      { q: 'Are you comfortable living alone in a foreign country for years?', panelist: 'Psychologist', a: `Acknowledge the challenge honestly. Then show your plan: researched culture, learning Bahasa, will find community, build routines, won\'t isolate. Discomfort is part of the point.` },
+      { q: 'Describe a difficult situation you faced and how you overcame it.', panelist: 'Psychologist', a: `Structure: SITUATION → WHAT YOU DID → OUTCOME + LESSON. Use a real, specific example. The lesson is the most important part.` },
+      { q: 'How do you handle conflict with others?', panelist: 'Psychologist', a: `Understand before responding. Most conflict = misaligned expectations. Address it directly and calmly. In multicultural settings, be aware of different communication styles.` },
+      { q: 'What motivates you?', panelist: 'Psychologist', a: `Measurable progress + creating something beyond yourself. Not money or approval. Show intrinsic motivation.` },
+      { q: 'What will you miss most about home, and how will you cope?', panelist: 'Psychologist', a: `Be honest: family, daily contact. Coping plan: regular calls, build routines, find community in Malang. Isolation is a choice — make the opposite.` },
+      { q: 'Why should we choose you over other applicants?', panelist: 'Psychologist', a: `Don\'t compare to others. Show what YOU uniquely bring: real experience, self-awareness, concrete post-scholarship plan, emotional resilience. Low-risk + high-drive candidate.` },
+    ];
+    mockIndex = 0;
+  }
+
+  function startMock() {
+    if (mockQuestions.length === 0) buildMockPool();
+    mockIndex = 0;
+    document.getElementById('mock-start-btn').style.display = 'none';
+    document.getElementById('mock-reveal-btn').style.display = 'inline-block';
+    document.getElementById('mock-next-btn').style.display = 'inline-block';
+    document.getElementById('mock-restart-btn').style.display = 'inline-block';
+    showMockQ();
+  }
+
+  function showMockQ() {
+    if (mockIndex >= mockQuestions.length) {
+      document.getElementById('mock-q-text').textContent = '🎉 Mock interview complete! You\'ve covered all questions.';
+      document.getElementById('mock-panelist-label').textContent = '';
+      document.getElementById('mock-reveal-btn').style.display = 'none';
+      document.getElementById('mock-next-btn').style.display = 'none';
+      document.getElementById('mock-answer-box').classList.remove('show');
+      clearInterval(mockTimer);
+      document.getElementById('mock-timer').textContent = '';
+      return;
+    }
+    const q = mockQuestions[mockIndex];
+    document.getElementById('mock-q-text').textContent = q.q;
+    document.getElementById('mock-panelist-label').textContent = q.panelist + ' Panelist';
+    document.getElementById('mock-answer-box').classList.remove('show');
+    document.getElementById('mock-counter').textContent = `Question ${mockIndex + 1} / ${mockQuestions.length}`;
+    document.getElementById('mock-progress').style.width = ((mockIndex / mockQuestions.length) * 100) + '%';
+    startTimer();
+  }
+
+  function startTimer() {
+    clearInterval(mockTimer);
+    mockSeconds = 90;
+    updateTimerDisplay();
+    mockTimer = setInterval(() => {
+      mockSeconds--;
+      updateTimerDisplay();
+      if (mockSeconds <= 0) { clearInterval(mockTimer); }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const el = document.getElementById('mock-timer');
+    const m = Math.floor(mockSeconds / 60);
+    const s = mockSeconds % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    el.className = 'timer-display' + (mockSeconds <= 20 ? ' warning' : '');
+  }
+
+  function revealAnswer() {
+    clearInterval(mockTimer);
+    const q = mockQuestions[mockIndex];
+    document.getElementById('mock-answer-text').textContent = q.a;
+    document.getElementById('mock-answer-box').classList.add('show');
+  }
+
+  function nextMockQ() {
+    mockIndex++;
+    showMockQ();
+  }
+
+  function restartMock() {
+    clearInterval(mockTimer);
+    mockIndex = 0;
+    document.getElementById('mock-start-btn').style.display = 'inline-block';
+    document.getElementById('mock-reveal-btn').style.display = 'none';
+    document.getElementById('mock-next-btn').style.display = 'none';
+    document.getElementById('mock-restart-btn').style.display = 'none';
+    document.getElementById('mock-answer-box').classList.remove('show');
+    document.getElementById('mock-q-text').textContent = 'Press Start to begin your mock interview';
+    document.getElementById('mock-panelist-label').textContent = '';
+    document.getElementById('mock-timer').textContent = '1:30';
+    document.getElementById('mock-timer').className = 'timer-display';
+    document.getElementById('mock-progress').style.width = '0%';
+    document.getElementById('mock-counter').textContent = 'Question 0 / 0';
+  }
+
+  // ─── CHECKLIST ───────────────────────────────────────────
+  function buildChecklist() {
+    const items = [
+      { id: 'c1', text: 'Test Zoom connection — do a test meeting' },
+      { id: 'c2', text: 'Confirm the Zoom link and save the Meeting ID + Passcode' },
+      { id: 'c3', text: 'Set your device timezone to GMT+7 and double-check the interview time' },
+      { id: 'c4', text: 'Choose and iron your formal outfit (button-up shirt minimum)' },
+      { id: 'c5', text: 'Find a quiet room with a plain, clean background' },
+      { id: 'c6', text: 'Set camera at eye level (stack books if needed)' },
+      { id: 'c7', text: 'Charge laptop / device fully the night before' },
+      { id: 'c8', text: 'Prepare a backup hotspot (mobile data) in case WiFi fails' },
+      { id: 'c9', text: 'Tell everyone at home not to disturb you during the interview window' },
+      { id: 'c10', text: 'Write your 3-4 key bullet points on a notepad (off-screen) for reference' },
+      { id: 'c11', text: 'Prepare 2 questions to ask the panelists at the end' },
+      { id: 'c12', text: 'Practice 2-3 Bahasa Indonesia phrases out loud' },
+      { id: 'c13', text: 'Run through the mock interview at least once before interview day' },
+      { id: 'c14', text: 'Log into Zoom waiting room by 11:15 AM GMT+7 (15 min early)' },
+      { id: 'c15', text: 'Take a breath. You passed the screening. They already see potential in you.' },
+    ];
+    const html = items.map(item => `
+      <div class="checklist-item" id="ci-${item.id}">
+        <input type="checkbox" id="${item.id}" onchange="toggleCheck('${item.id}')">
+        <label for="${item.id}">${item.text}</label>
+      </div>
+    `).join('');
+    document.getElementById('checklist-container').innerHTML = html;
+  }
+
+  function toggleCheck(id) {
+    const row = document.getElementById('ci-' + id);
+    const cb = document.getElementById(id);
+    row.classList.toggle('checked', cb.checked);
+  }
+</script>
+</body>
+</html>
